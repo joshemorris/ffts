@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 
-project(ffts C ASM)
+project(ffts C)
+
+if(NOT MSVC)
+    enable_language(ASM OPTIONAL)
+endif()
 
 # TODO: to support AutoConfigure building, this should came from "template" file
 set(FFTS_MAJOR 0)
