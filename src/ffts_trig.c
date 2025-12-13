@@ -1192,6 +1192,10 @@ ffts_generate_table_1d_real_32f(struct _ffts_plan_t *const p,
         B[1] = 1.0f;
     }
 
+    if (FFTS_UNLIKELY(N == 2)) {
+        return 0;
+    }
+
     if (FFTS_UNLIKELY(N == 4)) {
         i = 1;
         goto last;
@@ -1201,7 +1205,7 @@ ffts_generate_table_1d_real_32f(struct _ffts_plan_t *const p,
     FFTS_ASSUME(N / 4 > 1);
     log_2 = ffts_ctzl(N);
     FFTS_ASSUME(log_2 > 2);
-    offset = 34 - log_2;
+    offset = 32 - log_2;
     ct = (const ffts_cpx_64f*)
         FFTS_ASSUME_ALIGNED_32(&cos_sin_pi_table[4 * offset]);
     hs = FFTS_ASSUME_ALIGNED_16(&half_secant[2 * offset]);
